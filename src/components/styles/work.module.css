@@ -1,327 +1,171 @@
-.title {
-  color: var(--white);
-  font-size: 1.8rem;
-  font-weight: 500;
+/* ===========================
+   work.module.css (FULL UPDATED)
+   Fixes:
+   ✅ Buttons aligned (actions pinned to bottom)
+   ✅ Clean responsive grid (mobile friendly)
+   ✅ Nice clamp so cards look even
+   ✅ Chips wrap nicely without breaking layout
+   =========================== */
+
+.title{
+  font-size: clamp(2rem, 3vw, 3.2rem);
   text-align: center;
-  position: relative;
-  padding: 8px 0;
-  margin: 60px auto;
+  color: #e8edf7;
+  margin-bottom: 2.2rem;
+  letter-spacing: 0.5px;
 }
 
-.title::after {
-  content: "";
-  background-color: var(--white);
-  width: 60px;
-  height: 2.5px;
-  display: inline-block;
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.project_container {
+/* GRID */
+.project_container{
   display: grid;
-  grid-template-columns: auto;
-  grid-gap: 1px;
-  padding: 0 10px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+  width: min(1100px, 92%);
+  margin: 0 auto;
 }
 
-.card {
-  aspect-ratio: 4 / 3;
-  position: relative;
+/* CARD */
+.card{
+  display: flex;                 /* ✅ KEY: makes bottom pinning work */
+  flex-direction: column;        /* ✅ vertical layout */
+  height: 100%;                  /* ✅ needed for grid */
+  padding: 18px;
+  border-radius: 18px;
+  background: rgba(8, 14, 26, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+  backdrop-filter: blur(10px);
+}
+
+/* HEADER ROW (title + badge) */
+.header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.name{
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #42b7ff;
+  margin: 0;
+  text-transform: none;
+}
+
+.badge{
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 999px;
+  color: #0b0f1a;
+  background: #42b7ff;
+  flex-shrink: 0;
+}
+
+/* DESCRIPTION */
+.desc{
+  color: rgba(232, 237, 247, 0.85);
+  line-height: 1.55;
+  font-size: 1rem;
+  margin: 0 0 14px 0;
+
+  /* ✅ makes all cards look even */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;   /* change 3/4/5 */
   overflow: hidden;
 }
 
-.img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  background-color: white;
-  position: absolute;
-  opacity: 1;
-  transform: scale(1);
-  transition: transform 0.25s ease-in-out;
-}
-
-.card_overlay {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  opacity: 0;
-  transition: 0.45s ease-in-out;
-}
-
-.card:hover .img {
-  transform: scale(1.1);
-  opacity: 0.5;
-}
-
-.card:hover .card_overlay {
-  opacity: 1;
-}
-
-.card_text {
-  background-color: var(--navy);
-  width: 100%;
-  height: 100%;
+/* CHIPS */
+.chips{
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 40px;
-}
-
-.text {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.card:hover .text {
-  animation: slide-down 0.3s ease-out;
-}
-
-@keyframes slide-down {
-  from {
-    transform: translateY(-150%);
-    opacity: 0.5;
-  }
-
-  to {
-    transform: translate(0);
-    opacity: 1;
-  }
-}
-
-.name {
-  color: var(--white);
-  font-family: "Bungee", cursive;
-  font-size: 1.2rem;
-  margin-bottom: 5px;
-}
-
-.tech {
-  display: flex;
+  flex-wrap: wrap;
   gap: 10px;
+  margin-bottom: 16px;
+
+  /* optional: keep chip area consistent */
+  min-height: 44px; /* 1 row */
 }
 
-.tech_list {
-  font-size: 0.7rem;
-  font-family: "Montserrat Alternates", sans-serif;
-  color: var(--cyan);
-}
-
-.tech_list:nth-child(2) {
-  background: #11998e; /* fallback for old browsers */
-  background:
-    -webkit-linear-gradient(
-      to top,
-      #11998e,
-      #38ef7d
-    ); /* Chrome 10-25, Safari 5.1-6 */
-
-  background:
-    linear-gradient(
-      to top,
-      #11998e,
-      #38ef7d
-    ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.tech_list:nth-child(3) {
-  background: #ec008c; /* fallback for old browsers */
-  background:
-    -webkit-linear-gradient(
-      to top,
-      #ec008c,
-      #fc6767
-    ); /* Chrome 10-25, Safari 5.1-6 */
-
-  background:
-    linear-gradient(
-      to top,
-      #ec008c,
-      #fc6767
-    ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.btn_container {
+.chip{
   font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--dark-blue);
-  background-color: var(--cyan) !important;
-  border-radius: 4px;
-  padding: 12px 18px;
-  text-transform: capitalize;
-  transition: 0.2s;
-  position: relative;
-  overflow: hidden;
+  padding: 7px 12px;
+  border-radius: 999px;
+  color: #cfe9ff;
+  border: 1px solid rgba(66, 183, 255, 0.35);
+  background: rgba(10, 24, 40, 0.55);
 }
 
-.btn_hover,
-.btn {
-  transition: all 0.2s ease-out;
+/* ✅ Divider pinned to bottom */
+.divider{
+  margin-top: auto;        /* ✅ KEY: pushes divider + actions to bottom */
+  height: 1px;
+  width: 100%;
+  background: rgba(255,255,255,0.10);
+  margin-bottom: 14px;
 }
 
-.btn_hover {
-  position: absolute;
-  top: 12px;
-  left: 18px;
-  opacity: 0;
-  transform: translate(0, -100%);
+/* ACTION BUTTONS */
+.actions{
+  display: flex;
+  gap: 12px;
 }
 
-.btn_container:hover,
-.btn_container:focus {
-  color: var(--cyan);
-  background-color: var(--dark-blue) !important;
-  box-shadow: 0 0 8px var(--cyan);
+.linkBtn{
+  flex: 1;
+  text-align: center;
+  padding: 12px 14px;
+  border-radius: 12px;
+  font-weight: 700;
+  text-decoration: none;
+  color: #0b0f1a;
+  background: #42b7ff;
+  transition: transform 0.15s ease, opacity 0.15s ease;
 }
 
-.btn_container:hover .btn,
-.btn_container:focus .btn {
-  opacity: 0;
-  transform: translate(0, 100%);
+.linkBtn:hover{
+  transform: translateY(-1px);
+  opacity: 0.92;
 }
 
-.btn_container:hover .btn_hover,
-.btn_container:focus .btn_hover {
-  opacity: 1;
-  transform: translate(0, 0);
+/* If you keep Live but want it hidden until future */
+.linkBtnHidden{
+  display: none;
 }
 
-.card:hover .btn_container {
-  animation: slide-up 0.3s ease-out;
-}
+/* ===========================
+   RESPONSIVE
+   =========================== */
 
-@keyframes slide-up {
-  from {
-    transform: translateY(150%);
-    opacity: 0.5;
-  }
-
-  to {
-    transform: translate(0);
-    opacity: 1;
+@media (max-width: 900px){
+  .project_container{
+    grid-template-columns: 1fr;  /* ✅ single column for tablet/mobile */
+    gap: 18px;
+    width: min(720px, 92%);
   }
 }
 
-@media screen and (min-width: 480px) {
-  .title {
-    font-size: 1.9rem;
+@media (max-width: 480px){
+  .card{
+    padding: 16px;
+    border-radius: 16px;
   }
 
-  .title::after {
-    width: 70px;
+  .name{
+    font-size: 1.2rem;
   }
 
-  .project_container {
-    padding: 0 30px;
+  .desc{
+    -webkit-line-clamp: 5; /* allow a bit more text on mobile */
   }
 
-  .card_text {
-    gap: 50px;
+  .actions{
+    flex-direction: column; /* ✅ buttons stack nicely */
   }
 
-  .name {
-    font-size: 1.35rem;
-    margin-bottom: 5px;
-  }
-
-  .tech_list {
-    font-size: 0.7rem;
-  }
-
-  .btn_container {
-    font-size: 1rem;
-    padding: 12px 20px;
-  }
-
-  .btn_hover {
-    left: 20px;
-  }
-}
-
-@media screen and (min-width: 768px) {
-  .title {
-    font-size: 2rem;
-  }
-
-  .project_container {
-    grid-template-columns: auto auto;
-    padding: 0 20px;
-  }
-
-  .name {
-    font-size: 1.25rem;
-  }
-
-  .btn_container {
-    padding: 12px 18px;
-  }
-
-  .btn_hover {
-    left: 18px;
-  }
-}
-
-@media screen and (min-width: 1024px) {
-  .project_container {
-    padding: 0;
-    width: 830px;
-    margin: 0 auto;
-  }
-}
-
-@media screen and (min-width: 1200px) {
-  .title {
-    font-size: 2.3rem;
-    margin-top: 110px;
-  }
-
-  .title::after {
-    width: 80px;
-  }
-
-  .project_container {
-    width: 970px;
-    grid-template-columns: auto auto auto;
-  }
-
-  .name {
-    font-size: 1.3rem;
-  }
-}
-
-@media screen and (min-width: 1400px) {
-  .project_container {
-    width: 1062px;
-  }
-
-  .card_text {
-    gap: 60px;
-  }
-
-  .name {
-    font-size: 1.35rem;
-  }
-
-  .tech_list {
-    font-size: 0.8rem;
-  }
-
-  .btn_container {
-    padding: 12px 20px;
-  }
-
-  .btn_hover {
-    left: 20px;
+  .linkBtn{
+    width: 100%;
   }
 }

@@ -34,7 +34,7 @@ const TechStack = () => {
           <motion.abbr
             initial="hidden"
             whileInView="show"
-            variants={fadeIn('up', '', index * 0.15, 0.5)}
+            variants={fadeIn('up', '', index * 0.06, 0.35)}
             title={tech.name}
             key={tech.name}
             className={style.tech}

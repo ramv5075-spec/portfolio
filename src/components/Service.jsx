@@ -18,7 +18,7 @@ const Service = () => (
         {services.map((service, index) => (
           <Tilt key={service.id} className={style.tilt}>
             <motion.div
-                variants={fadeIn('right', 'tween', index * 0.8, 0.5)}
+                variants={fadeIn('right', 'tween', index * 0.06, 0.35)}
                 className={style.card_shadow}
             >
                 <div className={style.card_overlay}>

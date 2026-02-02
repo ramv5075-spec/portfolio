@@ -9,6 +9,7 @@ import Testimonial from './components/Testimonial';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import StarsCanvas from './components/Stars';
+import PortfolioChat from "./components/PortfolioChat";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <div className="contact mb-80"><Contact /></div>
       </div>
       <Footer />
+      <PortfolioChat />
     </ThemeProvider>
   );
 }
