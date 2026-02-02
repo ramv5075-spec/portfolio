@@ -20,7 +20,7 @@ const Home = () => (
       </p>
 
       <motion.p variants={fadeIn('', '', 0.3, 1)} className={style.desc}>
-        Software Development Engineer (SDE) • Full-Stack • AI Engineer
+        Actively seeking full-time roles in Software Development (SDE), Full-Stack, and AI Engineering
       </motion.p>
 
       <motion.button
