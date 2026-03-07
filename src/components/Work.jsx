@@ -150,6 +150,6 @@ const Work = () => {
   );
 };
 
-export default SectionWrapper(Work, 'work', 'my-8');
+export default Work;
 
 

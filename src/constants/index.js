@@ -254,8 +254,74 @@ const technologies = [
 // ];
 
 const projects = [
+  {
+    id: 1,
+    name: 'LedgerBank API',
+    desc: 'Core banking REST API built with Node.js, Express, and PostgreSQL. Features JWT authentication, wallet management, atomic fund transfers, transaction history, and loan workflows. Deployed live on Railway.',
+    tech: ['Node.js', 'Express', 'PostgreSQL', 'JWT', 'Railway'],
+    img: null,
+    carousel: [],
+    source_link: 'https://github.com/ramv5075-spec/ledgerbank-api',
+    live_link: '',
+    hasLive: false,
+  },
+  {
+    id: 2,
+    name: 'LedgerBank Web',
+    desc: 'React.js web dashboard connected to the LedgerBank API. Includes login, wallet dashboard, transfers, transaction history, and loan features. Built with React 18, Vite, React Router, and Axios.',
+    tech: ['React.js', 'Vite', 'React Router', 'Axios', 'REST API'],
+    img: null,
+    carousel: [],
+    source_link: 'https://github.com/ramv5075-spec/ledgerbank-web',
+    live_link: '',
+    hasLive: false,
+  },
+  {
+    id: 3,
+    name: 'LedgerBank Mobile',
+    desc: 'Cross-platform mobile banking app built with React Native CLI for iOS and Android. Features dashboard, transfers, transactions, and loan workflows with JWT authentication and AsyncStorage.',
+    tech: ['React Native', 'JavaScript', 'JWT', 'AsyncStorage', 'Mobile App'],
+    img: null,
+    carousel: [],
+    source_link: 'https://github.com/ramv5075-spec/ledgerbank-mobile',
+    live_link: '',
+    hasLive: false,
+  },
+  {
+    id: 4,
+    name: 'AI RAG System',
+    desc: 'Local Retrieval-Augmented Generation system using SQL Server, FAISS vector store, and Mistral 7B. Runs fully offline without paid APIs and enables private knowledge retrieval over enterprise data.',
+    tech: ['Python', 'FAISS', 'Mistral 7B', 'SQL Server', 'RAG'],
+    img: null,
+    carousel: [],
+    source_link: 'https://github.com/ramv5075-spec/ai-rag-system',
+    live_link: '',
+    hasLive: false,
+  },
+  {
+    id: 5,
+    name: 'AI SQL Agent',
+    desc: 'Agentic AI system that converts natural language questions into SQL queries and returns structured database insights. Built in Python to demonstrate NL-to-SQL workflows and AI-driven data querying.',
+    tech: ['Python', 'Agentic AI', 'SQL', 'LLM', 'Data Querying'],
+    img: null,
+    carousel: [],
+    source_link: 'https://github.com/ramv5075-spec/ai-sql-agent',
+    live_link: '',
+    hasLive: false,
+  },
+  {
+    id: 6,
+    name: 'Portfolio AI Assistant',
+    desc: 'AI-powered chatbot deployed on AWS Lambda using OpenAI gpt-4o-mini. Answers recruiter questions about projects, skills, and experience. Secured with shared secret header and CORS protection.',
+    tech: ['AWS Lambda', 'OpenAI', 'JavaScript', 'CORS', 'AI Chatbot'],
+    img: null,
+    carousel: [],
+    source_link: 'https://github.com/ramv5075-spec/portfolio-ai-assistant',
+    live_link: 'https://ramvasanth.com',
+    hasLive: true,
+  },
    {
-    id: 101,
+    id: 7,
     name: 'NeetCode 150',
     desc: 'A structured collection of optimized solutions to the NeetCode 150 data structures and algorithms problems. Solutions are organized by topic with clear explanations, edge case handling, and time/space complexity analysis to support technical interview preparation.',
     tech: ['C++', 'DSA', 'Interview Prep'],
@@ -266,7 +332,7 @@ const projects = [
     hasLive: false,
   },
   {
-    id: 102,
+    id: 8,
     name: 'TaskFlow (Full-Stack)',
    desc: 'A full-stack task management application built with Vue 3 and Node.js/Express. Implements complete CRUD workflows using RESTful APIs, enabling users to create, update, track, and manage tasks with seamless frontend–backend integration.',
     tech: ['Vue.js', 'Node.js', 'Express', 'REST API'],
@@ -277,7 +343,7 @@ const projects = [
     hasLive: false,
   },
   {
-    id: 103,
+    id: 9,
     name: 'DocChat RAG',
     desc: 'A local Retrieval-Augmented Generation (RAG) chat application that enables private document querying without relying on paid APIs. Uses Ollama for local LLM inference and focuses on secure, offline-first AI workflows for document-based question answering.',
     tech: ['RAG', 'Ollama', 'Node.js', 'Vue.js'],
@@ -288,7 +354,7 @@ const projects = [
     hasLive: false,
   },
   {
-    id: 104,
+    id: 10,
     name: 'URL Shortener',
     desc: 'A backend-focused URL shortening service implementing REST APIs and redirection logic. Demonstrates core backend concepts such as API design, persistent storage, request handling, and efficient URL resolution.',
     tech: ['Node.js', 'Express', 'SQLite', 'Vue.js'],
@@ -299,7 +365,7 @@ const projects = [
     hasLive: false,
   },
   {
-    id: 105,
+    id: 11,
     name: 'Auth JWT RBAC',
    desc: 'A secure authentication and authorization system implementing JWT-based access control with Role-Based Access Control (RBAC). Features protected routes, permission-based APIs, and middleware-driven security enforcement.',
     tech: ['Node.js', 'Express', 'JWT', 'RBAC'],
@@ -310,7 +376,7 @@ const projects = [
     hasLive: false,
   },
   {
-  id: 1,
+  id: 12,
   name: 'CI/CD',
   desc: 'An AWS-based cross-account CI/CD pipeline designed to automate build and deployment workflows across multiple AWS accounts. Implements secure IAM boundaries, automated builds, artifact storage, and deployment orchestration to enable fast and reliable releases.',
   tech: ['AWS CodePipeline', 'CodeBuild', 'S3', 'IAM'],
@@ -324,7 +390,10 @@ const projects = [
   hasLive: false,
 }
 
-  // {
+  
+];
+
+// {
   //   id: 2,
   //   name: 'Fabrito',
   //   desc: 'Fabrito is a fabrics inventory management system designed for the clothing industry. It helps manage fabric stocks, suppliers, and usage tracking to ensure optimized production and reduce material wastage.',
@@ -404,7 +473,6 @@ const projects = [
   //   source_link: 'https://github.com/RAMVASANTH136/', // replace with actual
   //   live_link: 'https://github.com/RAMVASANTH136/', // replace if needed
   // },
-];
 
 
 const testimonials = [
