@@ -216,7 +216,7 @@
 }
 .mobile_resume_btn:hover { opacity: 0.88; }
 
-/* ── RESPONSIVE ── */
+
 @media screen and (min-width: 768px) {
   .navbar { padding: 18px 45px 18px 30px; }
   .navlink { display: flex; }
