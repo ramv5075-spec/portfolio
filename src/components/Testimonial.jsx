@@ -1,125 +1,89 @@
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { FaLinkedinIn, FaQuoteLeft } from 'react-icons/fa';
-// import { BsArrowLeft, BsArrowRight } from 'react-icons/bs';
-import { PiArrowFatLinesLeftBold, PiArrowFatLinesRightBold } from 'react-icons/pi';
-import { fadeIn, textVariant, slideIn } from '../utils/motion';
-import SectionWrapper from '../hoc';
-import { testimonials } from '../constants';
-import style from './styles/testimonial.module.css';
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import SectionWrapper from "../hoc";
+import { fadeIn, textVariant } from "../utils/motion";
+import { testimonials } from "../constants";
+import style from "./styles/testimonial.module.css";
+
+const FLAGS = { "India": "🇮🇳", "London,UK": "🇬🇧", "South Africa": "🇿🇦", "Rwanda": "🇷🇼", "Macedonia": "🇲🇰" };
 
 const Testimonial = () => {
-  const [number, setNumber] = useState(1);
-  const [showPerPage, setShowPerPage] = useState(1);
-  const [desktop, setDesktop] = useState(false);
-  const lastNumber = number * showPerPage;
-  const firstNumber = lastNumber - showPerPage;
-  const filterTestimonial = testimonials.slice(firstNumber, lastNumber);
-
-  const prev = () => {
-    if (desktop) {
-      setNumber((prevNumber) => (prevNumber === 2 ? prevNumber - 1 : 1));
-    } else {
-      setNumber((prevNumber) => (prevNumber === 1 ? testimonials.length : prevNumber - 1));
-    }
-  };
-
-  const next = () => {
-    if (desktop) {
-      setNumber((prevNumber) => (prevNumber === 1 ? prevNumber + 1 : 2));
-    } else {
-      setNumber((prevNumber) => (prevNumber === testimonials.length ? 1 : prevNumber + 1));
-    }
-  };
+  const [active, setActive] = useState(0);
+  const [auto, setAuto] = useState(true);
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia('(min-width: 1200px)');
+    if (!auto) return;
+    const t = setInterval(() => setActive((a) => (a + 1) % testimonials.length), 5000);
+    return () => clearInterval(t);
+  }, [auto]);
 
-    const handleMediaQueryChange = (event) => {
-      if (event.matches) {
-        setShowPerPage(3);
-        setDesktop(true);
-      } else {
-        setShowPerPage(1);
-        setDesktop(false);
-      }
-    };
-
-    handleMediaQueryChange(mediaQuery);
-
-    mediaQuery.addEventListener('change', handleMediaQueryChange);
-
-    return () => {
-      mediaQuery.removeEventListener('change', handleMediaQueryChange);
-    };
-  }, []);
+  const prev = () => { setAuto(false); setActive((a) => (a - 1 + testimonials.length) % testimonials.length); };
+  const next = () => { setAuto(false); setActive((a) => (a + 1) % testimonials.length); };
 
   return (
-    <div className={style.container}>
-      <motion.h1 variants={textVariant()} className={style.title}>
-        Testimonials
-      </motion.h1>
-      <motion.p variants={fadeIn('', '', 0.15, 1)} className={style.subtitle}>What my coding partners say about me -</motion.p>
-      <div className={style.carousel_container}>
-        {/* Testimonials card */}
-        <motion.div variants={fadeIn('', '', 0.5, 1)} className={style.card_container}>
-          {filterTestimonial.map((testimonial) => (
-            <motion.div
-              initial="hidden"
-              animate="show"
-              variants={fadeIn('', '', 0.15, 1)}
-              key={testimonial.id}
-              className={style.card}
-            >
-              <div className={style.header}>
-                <motion.div variants={textVariant()}><FaQuoteLeft className={style.openquote} /></motion.div>
-                {/* <img className={style.img} src={testimonial.image} alt="profile" /> */}
-              </div>
-              <motion.p variants={fadeIn('', '', 0.15, 1)} className={style.para}>{testimonial.text}</motion.p>
-              <div className={`${style.label} ${style.firstlabel}`}>
-                <motion.p variants={slideIn('left', '', 0.3, 0.75)} className={style.name}>
-                  {testimonial.name}
-                  {' '}
-                  <span className={style.country}>
-                    (
-                    {testimonial.country}
-                    )
-                  </span>
-                </motion.p>
-                <motion.abbr variants={slideIn('right', '', 0.3, 0.75)} title="LinkedIn Profile">
-                  <a
-                    href={testimonial.linkedIn}
-                    target="_blank"
-                    className={style.icon}
-                    rel="noreferrer"
-                    aria-label="LinkedIn Profile"
-                  >
-                    <FaLinkedinIn />
-                  </a>
-                </motion.abbr>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
-        <div className={style.btn_container}>
-          <button
-            className={desktop && number === 1 ? 'hidden' : `${style.button} ${style.prev}`}
-            type="button"
-            onClick={prev}
+    <>
+      <motion.h1 variants={textVariant()} className={style.title}>Testimonials</motion.h1>
+      <motion.p variants={fadeIn("","",0.1,0.5)} className={style.subtitle}>
+        What colleagues say about working with me
+      </motion.p>
+
+      <div className={style.carousel}>
+        {/* Big quote mark */}
+        <div className={style.quote_mark}>&ldquo;</div>
+
+        {/* Testimonial content */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={active}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.4 }}
+            className={style.card}
           >
-            <PiArrowFatLinesLeftBold />
-          </button>
-          <button
-            className={desktop && number === 2 ? 'hidden' : `${style.button} ${style.next}`}
-            type="button"
-            onClick={next}
-          >
-            {/* <PiArrowFatLinesRightBold /> */}
-          </button>
+            <p className={style.text}>{testimonials[active].text}</p>
+
+            <div className={style.author_row}>
+              <div className={style.avatar}>
+                {testimonials[active].name.charAt(0)}
+              </div>
+              <div className={style.author_info}>
+                <span className={style.author_name}>{testimonials[active].name}</span>
+                <span className={style.author_location}>
+                  {FLAGS[testimonials[active].country] || "🌍"} {testimonials[active].country}
+                </span>
+              </div>
+              <a
+                href={testimonials[active].linkedIn}
+                target="_blank"
+                rel="noreferrer"
+                className={style.li_btn}
+                title="View LinkedIn"
+              >
+                in
+              </a>
+            </div>
+          </motion.div>
+        </AnimatePresence>
+
+        {/* Controls */}
+        <div className={style.controls}>
+          <button className={style.arrow_btn} onClick={prev} aria-label="Previous">←</button>
+          <div className={style.dots}>
+            {testimonials.map((_, i) => (
+              <button
+                key={i}
+                className={i === active ? style.dot_active : style.dot}
+                onClick={() => { setAuto(false); setActive(i); }}
+                aria-label={"Go to testimonial " + (i + 1)}
+              />
+            ))}
+          </div>
+          <button className={style.arrow_btn} onClick={next} aria-label="Next">→</button>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
-export default SectionWrapper(Testimonial, 'testimonial', 'my-0');
+export default SectionWrapper(Testimonial, "testimonial", "");

@@ -1,0 +1,153 @@
+/* ── Floating trigger button ── */
+.trigger_btn {
+  position: fixed;
+  bottom: 80px;
+  left: 24px;
+  width: 46px;
+  height: 46px;
+  border-radius: 10px;
+  background: rgba(0,255,255,0.08);
+  border: 1.5px solid rgba(0,255,255,0.3);
+  color: var(--cyan);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 60;
+  transition: all 0.2s ease;
+  box-shadow: 0 0 12px rgba(0,255,255,0.1);
+}
+.trigger_btn:hover {
+  background: rgba(0,255,255,0.15);
+  box-shadow: 0 0 20px rgba(0,255,255,0.25);
+  transform: translateY(-2px);
+}
+.trigger_icon {
+  font-family: monospace;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: -1px;
+}
+
+/* ── Overlay ── */
+.overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(4px);
+  padding: 20px;
+}
+
+/* ── Terminal window ── */
+.terminal {
+  width: 100%;
+  max-width: 680px;
+  height: 460px;
+  background: #0d1117;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 24px 80px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.05);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  font-family: 'Fira Code', 'Courier New', monospace;
+}
+
+/* ── Title bar ── */
+.titlebar {
+  background: #161b22;
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  flex-shrink: 0;
+}
+.dots_row {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+}
+.dot_red {
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: #ff5f57;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.dot_red:hover { opacity: 0.8; }
+.dot_yellow {
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: #febc2e;
+  display: block;
+}
+.dot_green {
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: #28c840;
+  display: block;
+}
+.terminal_title {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.4);
+  font-family: monospace;
+}
+
+/* ── Output area ── */
+.output {
+  flex: 1;
+  overflow-y: auto;
+  padding: 14px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.1) transparent;
+}
+.output::-webkit-scrollbar { width: 4px; }
+.output::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
+
+.line_output  { font-size: 0.8rem; color: rgba(255,255,255,0.75); line-height: 1.6; }
+.line_input   { font-size: 0.8rem; color: var(--cyan); line-height: 1.6; }
+.line_error   { font-size: 0.8rem; color: #ff5f57; line-height: 1.6; }
+.line_success { font-size: 0.8rem; color: #28c840; line-height: 1.6; }
+.line_system  { font-size: 0.8rem; color: #febc2e; line-height: 1.6; }
+.line_blank   { height: 6px; }
+
+/* ── Input row ── */
+.input_row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  background: #0d1117;
+  flex-shrink: 0;
+}
+.prompt {
+  font-size: 0.8rem;
+  color: var(--cyan);
+  white-space: nowrap;
+  font-family: monospace;
+}
+.input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: rgba(255,255,255,0.85);
+  font-family: 'Fira Code', 'Courier New', monospace;
+  font-size: 0.8rem;
+  caret-color: var(--cyan);
+}
+
+@media screen and (max-width: 480px) {
+  .terminal { height: 380px; }
+  .trigger_btn { bottom: 90px; left: 16px; }
+}

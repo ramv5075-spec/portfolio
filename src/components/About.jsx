@@ -4,53 +4,18 @@ import SectionWrapper from '../hoc';
 import style from './styles/about.module.css';
 import { textVariant, fadeIn } from '../utils/motion';
 
+const HIGHLIGHTS = [
+  { icon: "🎓", label: "Education", value: "MS CSE @ University at Buffalo" },
+  { icon: "💼", label: "Experience", value: "4+ Years · 3 Companies" },
+  { icon: "🧠", label: "Specialization", value: "AI / ML + Full-Stack" },
+  { icon: "☁️", label: "Cloud", value: "AWS · GCP · Azure" },
+  { icon: "📍", label: "Location", value: "New York, NY" },
+  { icon: "✅", label: "Status", value: "Available Now · F-1 OPT" },
+];
+
 const About = () => {
-  // ✅ Smaller stagger so fast scroll still shows content quickly
-  const lines = [
-    (
-      <>
-        Hey there! I&apos;m{' '}
-        <a
-          href="https://www.linkedin.com/in/ramvasanth-mahendran-8a0507203/"
-          target="_blank"
-          className={style.link}
-          rel="noreferrer"
-        >
-          Ramvasanth Mahendran (Ram),
-        </a>{' '}
-        a Full-Stack Developer and AI Engineer with a Master’s degree in Computer Science & Engineering from the University at Buffalo.
-      </>
-    ),
-    (
-      <>
-        I recently completed my IT Internship at Hachette Book Group, where I built an AI-powered customer support chatbot by designing an end-to-end Retrieval-Augmented Generation (RAG) pipeline. My work involved connecting Oracle and Microsoft SQL Server databases, generating embeddings, integrating local Large Language Models (LLMs), and delivering secure, enterprise-grade AI solutions tailored for internal use.
-      </>
-    ),
-    (
-      <>
-        With 5+ years of hands-on experience, I’ve worked across mobile applications, web platforms, cloud deployments, and AI-driven systems. My technical skill set spans React, Vue.js, React Native, Node.js, Spring Boot, AWS, along with strong expertise in machine learning, embeddings, and vector databases.
-      </>
-    ),
-    (
-      <>
-        I specialize in building at the intersection of full-stack engineering and artificial intelligence—combining scalable backend architectures, intuitive front-end experiences, and intelligent models to solve real-world problems. From optimizing business workflows to building secure AI systems and interactive data visualizations, I focus on creating solutions that are robust, efficient, and user-centric.
-      </>
-    ),
-    (
-      <>
-        I’m currently seeking full-time opportunities where I can contribute as a Full-Stack Engineer, AI Engineer, or Software Engineer. Feel free to explore my projects and resume—and let’s build something impactful together.{' '}
-        <a
-          href="https://drive.google.com/file/d/1-llREzHkJjQ964BguAaC2WtJWXIms1mW/view?usp=drive_link"
-          target="_blank"
-          className={style.link}
-          rel="noreferrer"
-        >
-          Check out my resume
-        </a>{' '}
-        for more insights into my journey and qualifications.
-      </>
-    ),
-  ];
+  const resumeHref = "https://drive.google.com/file/d/1RaqEXtvEpP7AK8Q0sKZx7B8jvIubxVNY/preview";
+  const liHref = "https://www.linkedin.com/in/ramvasanth-mahendran-8a0507203/";
 
   return (
     <>
@@ -58,19 +23,52 @@ const About = () => {
         About Me
       </motion.h1>
 
-      <div className={style.para}>
-        {lines.map((content, idx) => (
-          <motion.p
-            key={idx}
-            variants={fadeIn('up', '', idx * 0.08, 0.45)} // ✅ fast stagger + short duration
-            className={style.text}
-          >
-            {content}
+      <div className={style.layout}>
+
+        {/* LEFT: text */}
+        <div className={style.left}>
+          <motion.p variants={fadeIn("up", "", 0.1, 0.5)} className={style.text}>
+            Hey! I’m{" "}
+            <a href={liHref} target="_blank" rel="noreferrer" className={style.link}>
+              Ramvasanth Mahendran
+            </a>
+            {" "}— a Full-Stack Developer and AI Engineer completing my MS in Computer Science &amp; Engineering (Systems Track) at the University at Buffalo.
           </motion.p>
-        ))}
+          <motion.p variants={fadeIn("up", "", 0.2, 0.5)} className={style.text}>
+            Most recently at <strong className={style.highlight}>Hachette Book Group</strong>, I built a production RAG platform with FAISS vector indexing, local Mistral 7B GPU inference, and FastAPI microservices — cutting query response time by 30% and manual incident resolution by 40%.
+          </motion.p>
+          <motion.p variants={fadeIn("up", "", 0.3, 0.5)} className={style.text}>
+            Before that at <strong className={style.highlight}>CodeStax.ai</strong>, I shipped Core Banking modules, cross-platform React Native apps to the App Store &amp; Google Play, and an AWS CodePipeline CI/CD system that cut release cycles by 40%.
+          </motion.p>
+          <motion.p variants={fadeIn("up", "", 0.4, 0.5)} className={style.text}>
+            I build at the intersection of <strong className={style.highlight}>AI and full-stack engineering</strong> — scalable backends, intuitive frontends, and intelligent systems that solve real problems.
+          </motion.p>
+          <motion.div variants={fadeIn("up", "", 0.5, 0.5)} className={style.cta_row}>
+            <a href={resumeHref} target="_blank" rel="noreferrer" className={style.btn_primary}>
+              View Resume
+            </a>
+            <a href="#contact" className={style.btn_secondary}>
+              Get in Touch
+            </a>
+          </motion.div>
+        </div>
+
+        {/* RIGHT: highlight cards */}
+        <motion.div variants={fadeIn("left", "", 0.2, 0.6)} className={style.right}>
+          {HIGHLIGHTS.map((h, i) => (
+            <div key={i} className={style.card}>
+              <span className={style.card_icon}>{h.icon}</span>
+              <div>
+                <p className={style.card_label}>{h.label}</p>
+                <p className={style.card_value}>{h.value}</p>
+              </div>
+            </div>
+          ))}
+        </motion.div>
+
       </div>
     </>
   );
 };
 
-export default SectionWrapper(About, 'about', '');
+export default SectionWrapper(About, "about", "");
