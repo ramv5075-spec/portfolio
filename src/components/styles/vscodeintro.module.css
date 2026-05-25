@@ -1,0 +1,267 @@
+/* ── Full screen overlay ── */
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0,0,0,0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+  transition: opacity 0.8s ease;
+}
+.fade_out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ── VS Code window ── */
+.window {
+  width: 100%;
+  max-width: 860px;
+  height: 520px;
+  background: #1e1e1e;
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.08);
+}
+
+/* ── Title bar ── */
+.titlebar {
+  background: #323233;
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+.traffic_lights {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+}
+.tl_red    { width: 12px; height: 12px; border-radius: 50%; background: #ff5f57; cursor: pointer; }
+.tl_yellow { width: 12px; height: 12px; border-radius: 50%; background: #febc2e; }
+.tl_green  { width: 12px; height: 12px; border-radius: 50%; background: #28c840; }
+.window_title {
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.5);
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* ── Main layout ── */
+.layout {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* ── Activity bar ── */
+.activity_bar {
+  width: 44px;
+  background: #2c2c2c;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 8px;
+  gap: 18px;
+  flex-shrink: 0;
+}
+.activity_icon {
+  font-size: 1.1rem;
+  color: rgba(255,255,255,0.35);
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.activity_icon:first-child { color: rgba(255,255,255,0.8); }
+.activity_icon:hover { color: rgba(255,255,255,0.7); }
+
+/* ── Sidebar ── */
+.sidebar {
+  width: 180px;
+  background: #252526;
+  flex-shrink: 0;
+  overflow: hidden;
+  border-right: 1px solid #1e1e1e;
+}
+.sidebar_title {
+  font-size: 0.62rem;
+  color: rgba(255,255,255,0.4);
+  letter-spacing: 0.1rem;
+  padding: 10px 12px 6px;
+  font-family: -apple-system, sans-serif;
+}
+.sidebar_folder {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 8px;
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.7);
+  font-family: monospace;
+}
+.folder_icon { color: #e8c27a; font-size: 0.7rem; }
+.sidebar_file {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 8px 3px 22px;
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.5);
+  font-family: monospace;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.sidebar_file:hover { background: rgba(255,255,255,0.05); }
+.file_active {
+  background: rgba(255,255,255,0.08) !important;
+  color: rgba(255,255,255,0.9) !important;
+}
+.file_icon { font-size: 0.7rem; color: #e8c27a; }
+
+/* ── Editor ── */
+.editor {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: #1e1e1e;
+}
+
+/* ── Tabs ── */
+.tabs {
+  display: flex;
+  background: #2d2d2d;
+  flex-shrink: 0;
+  border-bottom: 1px solid #1e1e1e;
+  overflow-x: auto;
+}
+.tab {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 16px;
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.4);
+  font-family: -apple-system, sans-serif;
+  cursor: pointer;
+  border-right: 1px solid #1e1e1e;
+  white-space: nowrap;
+  position: relative;
+}
+.tab_active {
+  background: #1e1e1e;
+  color: rgba(255,255,255,0.85);
+  border-top: 1px solid #0078d4;
+}
+.tab_icon { font-size: 0.7rem; }
+.tab_dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.4);
+  margin-left: 2px;
+}
+
+/* ── Code area ── */
+.code_area {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px 0;
+  font-family: 'Fira Code', 'Courier New', monospace;
+  font-size: 0.82rem;
+  line-height: 1.7;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.1) transparent;
+}
+.code_area::-webkit-scrollbar { width: 4px; }
+.code_area::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); }
+
+.code_line {
+  display: flex;
+  align-items: baseline;
+  padding: 0 16px 0 0;
+  min-height: 1.7em;
+}
+.line_num {
+  width: 40px;
+  text-align: right;
+  padding-right: 20px;
+  color: rgba(255,255,255,0.2);
+  font-size: 0.75rem;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+/* ── Syntax colors ── */
+.color_comment { color: #6a9955; }
+.color_white   { color: #d4d4d4; }
+.color_string  { color: #ce9178; }
+.color_array   { color: #9cdcfe; }
+.color_call    { color: #dcdcaa; }
+.color_blank   { color: transparent; }
+
+/* ── Blinking cursor ── */
+.cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background: #aeafad;
+  margin-left: 1px;
+  vertical-align: text-bottom;
+  animation: cur_blink 1s step-start infinite;
+}
+@keyframes cur_blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* ── Status bar ── */
+.statusbar {
+  background: #0078d4;
+  padding: 3px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.65rem;
+  color: rgba(255,255,255,0.9);
+  font-family: -apple-system, sans-serif;
+  flex-shrink: 0;
+}
+.status_left  { opacity: 0.85; }
+.status_mid   { opacity: 0.7; }
+.status_right { opacity: 0.85; }
+
+/* ── Skip button ── */
+.skip_btn {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.4);
+  font-family: monospace;
+  font-size: 0.72rem;
+  padding: 6px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  letter-spacing: 0.06rem;
+  transition: all 0.2s ease;
+  z-index: 1;
+}
+.skip_btn:hover {
+  border-color: rgba(255,255,255,0.4);
+  color: rgba(255,255,255,0.8);
+}
+
+/* ── Mobile ── */
+@media screen and (max-width: 600px) {
+  .sidebar { display: none; }
+  .activity_bar { display: none; }
+  .window { height: 420px; }
+  .code_area { font-size: 0.72rem; }
+  .window_title { font-size: 0.62rem; }
+}

@@ -5,7 +5,7 @@ import { fadeIn } from "../utils/motion";
 import { light, dark } from "../assets";
 import style from "./styles/navbar.module.css";
 
-const RESUME_LINK = "https://drive.google.com/file/d/1RaqEXtvEpP7AK8Q0sKZx7B8jvIubxVNY/preview";
+const RESUME_LINK = "https://drive.google.com/file/d/1iDAS97T-d9uYfK6dxMZnmc2J9O6dL6up/preview";
 
 const NAV_LINKS = [
   { id: 1, name: "About",      url: "/#about" },

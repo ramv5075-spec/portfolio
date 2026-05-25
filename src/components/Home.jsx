@@ -104,7 +104,7 @@ function Home() {
 
   const ghHref = 'https://github.com/ramv5075-spec';
   const liHref = 'https://linkedin.com/in/ramvasanth-mahendran-8a0507203';
-  const cvHref = 'https://drive.google.com/file/d/1RaqEXtvEpP7AK8Q0sKZx7B8jvIubxVNY/preview';
+  const cvHref = 'https://drive.google.com/file/d/1iDAS97T-d9uYfK6dxMZnmc2J9O6dL6up/preview';
 
   return (
     <motion.section
