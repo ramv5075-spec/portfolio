@@ -10,6 +10,8 @@ const SECTIONS = [
   { id: "testimonial", label: "Testimonials" },
   { id: "contact",     label: "Contact" },
   { id: 'leetcode', label: 'LeetCode' },
+  { id: 'apilab', label: 'API Lab' },
+  { id: 'articles', label: 'Writing' },
 ];
 
 const DotNav = () => {

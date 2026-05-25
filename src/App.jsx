@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { ThemeProvider } from './ThemeContext';
 import Navbar from './components/Navbar';
 import Home from './components/Home';
@@ -10,35 +11,47 @@ import Testimonial from './components/Testimonial';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import StarsCanvas from './components/Stars';
-import PortfolioChat from "./components/PortfolioChat";
-import Impact from './components/Impact';
+import PortfolioChat from './components/PortfolioChat';
 import DotNav from './components/DotNav';
 import TerminalEgg from './components/TerminalEgg';
 import LeetCode from './components/LeetCode';
+import APILab from './components/APILab';
+import AnnouncementBar from './components/AnnouncementBar';
+import Articles from './components/Articles';
 
 function App() {
   return (
     <ThemeProvider>
-      <div className="relative w-screen h-screen z-10">
+
+      {/* ── Fixed elements — outside all stacking contexts ── */}
+      <AnnouncementBar />
+      <DotNav />
+      <TerminalEgg />
+      <PortfolioChat />
+
+      {/* ── Hero ── */}
+      <div className="relative w-screen h-screen">
         <Home />
         <StarsCanvas />
       </div>
-      <div className="relative z-0 body">
+
+      {/* ── Main content ── */}
+      <div className="relative body">
         <Navbar />
         <About />
         <Experience />
         <TechStack />
         <Service />
         <Work />
-        {/* <Impact /> */}
+        <APILab />
+        <Articles />
         <div><Testimonial /></div>
-        <LeetCode/>
+        <LeetCode />
         <div><Contact /></div>
-        <DotNav />
-        <TerminalEgg />
       </div>
+
       <Footer />
-      <PortfolioChat />
+
     </ThemeProvider>
   );
 }

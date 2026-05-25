@@ -229,3 +229,15 @@
   .navlink { font-size: 14px; gap: 36px; }
   .logo_text { font-size: 1.4rem; }
 }
+
+
+.navbar {
+  top: var(--bar-height, 0px);  /* ← add this */
+  transition: top 0.4s ease;    /* ← add this */
+  /* keep all other properties */
+}
+
+.fixed {
+  position: fixed;
+  top: var(--bar-height, 0px);  /* ← change from 0 to this */
+}

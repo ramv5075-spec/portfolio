@@ -212,6 +212,20 @@ function Home() {
           <span className={style.chat_text}>Ask my AI assistant about my projects, stack, or experience</span>
           <span className={style.chat_arrow}>↘</span>
         </motion.p>
+        {/* API Lab announcement */}
+        <motion.a
+          variants={fadeIn('', '', 0.95, 1)}
+          className={style.announcement}
+          href="#apilab"
+          onClick={(e) => {
+            e.preventDefault();
+            document.getElementById('apilab')?.scrollIntoView({ behavior: 'smooth' });
+          }}
+        >
+          <span className={style.announce_badge}>NEW</span>
+          <span className={style.announce_text}>⚗️ API Lab — Try REST, GraphQL, gRPC, WebSocket & SOAP live</span>
+          <span className={style.announce_arrow}>→</span>
+        </motion.a>
 
       </div>
     </motion.section>

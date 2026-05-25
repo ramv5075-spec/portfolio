@@ -1,0 +1,232 @@
+/* ── Title ── */
+.title {
+  color: var(--white);
+  font-size: 1.8rem;
+  font-weight: 500;
+  text-align: center;
+  position: relative;
+  padding: 8px 0;
+  margin-bottom: 12px;
+}
+.title::after {
+  content: "";
+  background-color: var(--cyan);
+  width: 50px; height: 2.5px;
+  display: inline-block;
+  position: absolute; bottom: 0; left: 50%;
+  transform: translateX(-50%);
+}
+.subtitle {
+  text-align: center;
+  font-size: 0.85rem;
+  font-family: 'Montserrat Alternates', sans-serif;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 40px;
+}
+
+/* ── Grid ── */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  width: 90%;
+  max-width: 1000px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* ── Article card ── */
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 24px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--cyan);
+  opacity: 0.4;
+  transition: opacity 0.25s ease;
+}
+.card:hover {
+  border-color: rgba(0,255,255,0.25);
+  background: rgba(0,255,255,0.03);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 32px rgba(0,0,0,0.35);
+}
+.card:hover::before { opacity: 1; }
+
+/* Featured card */
+.card_featured {
+  border-color: rgba(0,255,255,0.15);
+  background: rgba(0,255,255,0.02);
+}
+.card_featured::before { opacity: 0.7; }
+
+.featured_badge {
+  position: absolute;
+  top: 16px; right: 16px;
+  font-size: 0.62rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 20px;
+  border: 1px solid rgba(0,255,255,0.3);
+  background: rgba(0,255,255,0.08);
+  color: var(--cyan);
+  letter-spacing: 0.04rem;
+}
+
+/* ── Card top ── */
+.card_top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.medium_logo {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: #000;
+  border: 1px solid rgba(255,255,255,0.15);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 900; font-size: 0.9rem;
+  color: var(--white); font-family: serif;
+  flex-shrink: 0;
+}
+
+.read_time {
+  font-size: 0.65rem;
+  color: rgba(255,255,255,0.35);
+  font-family: 'Montserrat Alternates', sans-serif;
+}
+
+/* ── Card content ── */
+.card_title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--white);
+  margin: 0;
+  line-height: 1.4;
+  transition: color 0.2s ease;
+}
+.card:hover .card_title { color: var(--cyan); }
+
+.card_excerpt {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.65;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+
+/* ── Tags ── */
+.card_tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 2px;
+}
+.tag {
+  font-size: 0.62rem;
+  padding: 3px 10px;
+  border-radius: 4px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.09);
+  color: rgba(255,255,255,0.5);
+}
+
+/* ── Card footer ── */
+.card_footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.date {
+  font-size: 0.65rem;
+  color: rgba(255,255,255,0.3);
+  font-family: 'Montserrat Alternates', sans-serif;
+}
+.read_link {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--cyan);
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+.card:hover .read_link { opacity: 1; }
+
+/* ── More card ── */
+.more_card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(255,255,255,0.01);
+  border: 1px dashed rgba(255,255,255,0.1);
+  border-radius: 14px;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  min-height: 120px;
+}
+.more_card:hover {
+  border-color: rgba(0,255,255,0.25);
+  background: rgba(0,255,255,0.02);
+  transform: translateY(-3px);
+}
+.more_inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.medium_logo_lg {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: #000;
+  border: 1px solid rgba(255,255,255,0.15);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 900; font-size: 1.2rem;
+  color: var(--white); font-family: serif;
+}
+.more_text {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.4);
+  font-family: 'Montserrat Alternates', sans-serif;
+  margin: 0;
+}
+.more_arrow {
+  font-size: 1rem;
+  color: var(--cyan);
+  opacity: 0.6;
+}
+.more_card:hover .more_arrow { opacity: 1; }
+
+/* ── RESPONSIVE ── */
+@media screen and (min-width: 768px) {
+  .title { font-size: 2rem; }
+  .grid { grid-template-columns: repeat(2, 1fr); }
+  .card_featured { grid-column: span 2; }
+  .card_title { font-size: 1.05rem; }
+}
+@media screen and (min-width: 1200px) {
+  .title { font-size: 2.3rem; }
+  .title::after { width: 80px; }
+  .card_excerpt { font-size: 0.82rem; }
+}
