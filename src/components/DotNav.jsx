@@ -9,9 +9,10 @@ const SECTIONS = [
   { id: "work",        label: "Projects" },
   { id: "testimonial", label: "Testimonials" },
   { id: "contact",     label: "Contact" },
-  { id: 'leetcode', label: 'LeetCode' },
-  { id: 'apilab', label: 'API Lab' },
-  { id: 'articles', label: 'Writing' },
+  // { id: 'leetcode', label: 'LeetCode' },
+  // { id: 'apilab', label: 'API Lab' },
+  // { id: 'articles', label: 'Writing' },
+  // { id: 'systemdesign', label: 'System Design' },
 ];
 
 const DotNav = () => {

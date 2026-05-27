@@ -1,21 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import style from './styles/announcement.module.css';
 
-// ── UPDATE THIS whenever you ship something new ──
 const ANNOUNCEMENT = {
-  id: 'api-lab-v2',
+  id: 'lab-v1',
   badge: 'NEW',
   emoji: '⚗️',
-  text: 'API Lab is live — try REST, GraphQL, gRPC, WebSocket & SOAP with real endpoints',
-  cta: 'Try it →',
-  target: 'apilab',
+  text: 'The Lab is live — try REST, GraphQL, gRPC, WebSocket & SOAP + System Design',
+  cta: 'Visit Lab →',
+  route: '/lab?tab=api',
 };
 
-const BAR_HEIGHT = 42; // px — keep in sync with CSS
+const BAR_HEIGHT = 42;
 
 const AnnouncementBar = () => {
   const [visible, setVisible] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const dismissed = localStorage.getItem('announcement_' + ANNOUNCEMENT.id);
@@ -25,14 +26,9 @@ const AnnouncementBar = () => {
     }
   }, []);
 
-  // Push body content down when bar is visible
   useEffect(() => {
     const root = document.documentElement;
-    if (visible) {
-      root.style.setProperty('--bar-height', BAR_HEIGHT + 'px');
-    } else {
-      root.style.setProperty('--bar-height', '0px');
-    }
+    root.style.setProperty('--bar-height', visible ? BAR_HEIGHT + 'px' : '0px');
     return () => root.style.setProperty('--bar-height', '0px');
   }, [visible]);
 
@@ -42,8 +38,7 @@ const AnnouncementBar = () => {
   };
 
   const handleCTA = () => {
-    const el = document.getElementById(ANNOUNCEMENT.target);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
+    navigate(ANNOUNCEMENT.route);
     dismiss();
   };
 

@@ -1,6 +1,7 @@
 .navbar_container {
   position: relative;
   height: 86px;
+  z-index: 50;
 }
 
 /* ── Scroll progress bar ── */
@@ -32,6 +33,10 @@
 
 .fixed {
   position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
 }
 
 /* ── Logo ── */
@@ -40,6 +45,8 @@
   border: none;
   cursor: pointer;
   padding: 0;
+  z-index: 51;
+  position: relative;
 }
 .logo_text {
   font-family: 'Bungee', cursive;
@@ -47,9 +54,7 @@
   color: var(--white);
   letter-spacing: 0.05rem;
 }
-.logo_accent {
-  color: var(--cyan);
-}
+.logo_accent { color: var(--cyan); }
 
 /* ── Desktop nav links ── */
 .navlink {
@@ -63,7 +68,6 @@
   margin: 0;
   padding: 0;
 }
-
 .font {
   font-family: 'Montserrat Alternates', sans-serif;
   color: rgba(255,255,255,0.6);
@@ -75,25 +79,15 @@
 .font::after {
   content: "";
   position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 1.5px;
+  bottom: 0; left: 0;
+  width: 0; height: 1.5px;
   background: var(--cyan);
   transition: width 0.25s ease;
 }
-.font:hover {
-  color: var(--white);
-}
-.font:hover::after {
-  width: 100%;
-}
-.font_active {
-  color: var(--cyan) !important;
-}
-.font_active::after {
-  width: 100% !important;
-}
+.font:hover { color: var(--white); }
+.font:hover::after { width: 100%; }
+.font_active { color: var(--cyan) !important; }
+.font_active::after { width: 100% !important; }
 
 /* ── Resume button ── */
 .resume_btn {
@@ -123,16 +117,8 @@
   padding: 0;
   cursor: pointer;
 }
-.theme_btn:focus,
-.theme_btn:focus-visible {
-  outline: none;
-  box-shadow: none;
-}
-.theme_img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
+.theme_btn:focus, .theme_btn:focus-visible { outline: none; box-shadow: none; }
+.theme_img { width: 100%; height: 100%; object-fit: cover; }
 
 /* ── Hamburger ── */
 .hamburger {
@@ -141,6 +127,7 @@
   position: relative;
   cursor: pointer;
   display: inline-block;
+  z-index: 51;
 }
 .line {
   background-color: var(--cyan);
@@ -152,15 +139,14 @@
 .line:nth-child(1) { width: 100%; top: 0; right: 0; }
 .line:nth-child(2) { width: 72%; top: 9px; right: 0; opacity: 1; }
 .line:nth-child(3) { width: 48%; bottom: 0; right: 0; }
-
 .open:nth-child(1) { transform: rotate(45deg); top: 9px; width: 100%; }
 .open:nth-child(2) { opacity: 0; }
 .open:nth-child(3) { transform: rotate(-45deg); top: 9px; width: 100%; }
 
 /* ── Mobile menu ── */
 .mobilemenu {
-  position: absolute;
-  top: 65px;
+  position: fixed;
+  top: 0;
   left: 0;
   width: 100%;
   height: 0;
@@ -172,21 +158,20 @@
   gap: 24px;
   padding: 0 32px;
   background-color: var(--dark-blue);
-  z-index: 49;
+  z-index: 48;
   list-style: none;
   margin: 0;
   transition: height 0.35s ease, opacity 0.35s ease, padding 0.35s ease;
   box-sizing: border-box;
 }
 .mobilemenu_open {
-  height: auto;
-  min-height: 100vh;
+  height: 100vh;
   opacity: 1;
-  padding: 32px 32px 48px;
+  padding: 120px 32px 48px;
 }
 
 .mobile_top {
-  margin-top: 100px;
+  display: none;
 }
 
 .mobile_font {
@@ -198,9 +183,7 @@
   transition: color 0.2s ease;
 }
 .mobile_font:hover { color: var(--cyan); }
-.mobile_active {
-  color: var(--cyan) !important;
-}
+.mobile_active { color: var(--cyan) !important; }
 
 .mobile_resume_btn {
   padding: 11px 22px;
@@ -216,7 +199,7 @@
 }
 .mobile_resume_btn:hover { opacity: 0.88; }
 
-
+/* ── RESPONSIVE ── */
 @media screen and (min-width: 768px) {
   .navbar { padding: 18px 45px 18px 30px; }
   .navlink { display: flex; }
@@ -230,14 +213,60 @@
   .logo_text { font-size: 1.4rem; }
 }
 
-
-.navbar {
-  top: var(--bar-height, 0px);  /* ← add this */
-  transition: top 0.4s ease;    /* ← add this */
-  /* keep all other properties */
+/* ── Lab link ── */
+.lab_link {
+  position: relative;
+  display: inline-flex !important;
+  align-items: center;
+  gap: 5px;
+}
+.lab_new {
+  font-size: 0.52rem;
+  font-weight: 800;
+  padding: 1px 5px;
+  border-radius: 20px;
+  background: var(--cyan);
+  color: #0a0f1e;
+  letter-spacing: 0.05rem;
+  line-height: 1.4;
+  vertical-align: middle;
 }
 
-.fixed {
-  position: fixed;
-  top: var(--bar-height, 0px);  /* ← change from 0 to this */
+/* ── Mobile lab link ── */
+.mobile_lab {
+  display: flex !important;
+  align-items: center;
+  gap: 10px;
+}
+.mobile_lab_badge {
+  font-size: 0.6rem;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 20px;
+  background: var(--cyan);
+  color: #0a0f1e;
+  letter-spacing: 0.05rem;
+}
+
+/* ── RAM:// styling ── */
+.ram_cyan  {
+  font-family: 'Bungee', cursive;
+  color: var(--cyan);
+  font-size: 0.95rem;
+}
+.ram_slash {
+  font-family: 'Bungee', cursive;
+  color: rgba(255,255,255,0.8);
+  font-size: 0.95rem;
+}
+
+/* ── RAM:// glow effect ── */
+.lab_link:hover .ram_cyan,
+.lab_link:focus .ram_cyan {
+  text-shadow: 0 0 12px var(--cyan);
+}
+.lab_link {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 1px;
 }
