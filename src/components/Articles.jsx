@@ -11,20 +11,37 @@ const ARTICLES = [
     excerpt: "A developer's guide to understanding when and why to use each API type — with a live interactive playground you can try right now.",
     tags: ["API Design", "REST", "GraphQL", "gRPC", "WebSocket"],
     readTime: "12 min read",
-    date: "2025",
+    date: "2026",
     link: "https://medium.com/@ramv5075/api-design-architecture-rest-graphql-grpc-websocket-and-soap-explained-d133d193f6c4",
     featured: true,
   },
-  // Add more articles here as you publish them
-  // {
-  //   title: "Your next article title",
-  //   excerpt: "Brief description...",
-  //   tags: ["Tag1", "Tag2"],
-  //   readTime: "8 min read",
-  //   date: "2025",
-  //   link: "https://medium.com/@ramv5075/your-article",
-  //   featured: false,
-  // },
+  {
+    title: "AWS Storage Types",
+    excerpt: "A complete breakdown of AWS storage services — S3, EBS, EFS, Glacier and more. When to use each, how they differ, and real-world use cases explained clearly.",
+    tags: ["AWS", "Cloud", "Storage", "S3"],
+    readTime: "6 min read",
+    date: "2024",
+    link: "https://codestax.medium.com/aws-storage-types-6ae201abfcae",
+    featured: false,
+  },
+  {
+    title: "CI/CD Cross Account Pipeline",
+    excerpt: "How to build an AWS cross-account CI/CD pipeline with CodePipeline and CodeBuild. Secure IAM boundaries, artifact storage, and automated deployments across multiple AWS accounts.",
+    tags: ["AWS", "CI/CD", "DevOps", "CodePipeline"],
+    readTime: "8 min read",
+    date: "2024",
+    link: "https://codestax.medium.com/ci-cd-cross-account-pipeline-216053e2ee82",
+    featured: false,
+  },
+  {
+    title: "Integrating Google Login with Firebase in React Native",
+    excerpt: "Step-by-step guide to adding Google OAuth authentication to a React Native app using Firebase. Covers setup, configuration, and handling auth state across iOS and Android.",
+    tags: ["React Native", "Firebase", "Google Auth", "Mobile"],
+    readTime: "7 min read",
+    date: "2024",
+    link: "https://codestax.medium.com/integrating-google-login-with-firebase-in-react-native-66bcc634164b",
+    featured: false,
+  },
 ];
 
 const ArticleCard = ({ article, index }) => (

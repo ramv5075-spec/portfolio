@@ -3,11 +3,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import SectionWrapper from "../hoc";
 import { textVariant, fadeIn } from "../utils/motion";
 import style from "./styles/systemdesign.module.css";
-import urlImg from "../assets/url_shorten.png"
+import urlImg  from "../assets/url_shorten.png";
 import rateImg from "../assets/rate_limiter.png";
-
-// ── UPDATE ONLY THE DESIGNS ARRAY in your SystemDesign.jsx ──
-// Replace the entire DESIGNS array with this:
+import chatImg from "../assets/chat.png";
 
 const DESIGNS = [
   {
@@ -16,7 +14,7 @@ const DESIGNS = [
     subtitle: "Design a system like bit.ly",
     difficulty: "Medium",
     status: "completed",
-    diagram: urlImg, // import urlImg from "../assets/url-shortener.png"
+    diagram: urlImg,
     concepts: ["Base62 encoding", "Redis cache", "Read replicas", "Rate limiting", "301 vs 302"],
     components: ["API Gateway", "Shorten Service", "Redirect Service", "MySQL", "Redis", "Kafka"],
     stats: [
@@ -34,7 +32,7 @@ const DESIGNS = [
     subtitle: "Design API rate limiting at scale",
     difficulty: "Medium",
     status: "completed",
-    diagram: rateImg, // import rateImg from "../assets/rate-limiter.png"
+    diagram: rateImg,
     concepts: ["Sliding window counter", "Fixed window", "Token bucket", "Redis atomic ops", "Lua scripts"],
     components: ["API Gateway", "Rate Limiter Middleware", "Redis Cluster", "Rules Config Service", "Backend Services"],
     stats: [
@@ -51,14 +49,18 @@ const DESIGNS = [
     title: "Chat System",
     subtitle: "Design WhatsApp at scale",
     difficulty: "Hard",
-    status: "coming",
-    diagram: null,
-    concepts: ["WebSocket", "Message queues", "Fanout", "Presence service"],
-    components: [],
-    stats: [],
+    status: "completed",
+    diagram: chatImg,
+    concepts: ["WebSocket", "Kafka", "Cassandra", "Redis", "Connection Registry", "E2E Encryption"],
+    components: ["Chat Server", "Message Service", "Connection Registry", "Kafka Queue", "Cassandra", "Redis", "Amazon S3", "Push Notification Service"],
+    stats: [
+      { val: "500M", unit: "DAU",     label: "Users" },
+      { val: "700k", unit: "msg/sec", label: "Peak QPS" },
+      { val: "38EB", unit: "/ 5yr",   label: "Storage" },
+    ],
     articleLink: "",
     excalidrawLink: "",
-    summary: "",
+    summary: "WhatsApp at scale: 500M DAU, 700k messages/sec at peak. Core challenge is maintaining 100M persistent WebSocket connections simultaneously. Chat servers are stateful — each holds one user's connection. Redis Connection Registry maps user ID to chat server. Kafka handles async message delivery. Cassandra for write-heavy message storage. TTL-based presence tracking.",
   },
   {
     id: "news-feed",
@@ -104,40 +106,92 @@ const DESIGNS = [
   },
 ];
 
-
 const DIFF_COLOR = {
   Easy:   style.diff_easy,
   Medium: style.diff_medium,
   Hard:   style.diff_hard,
 };
 
-/* ── MODAL ── */
-const Modal = ({ design, onClose }) => {
+/* ── LIGHTBOX ── */
+const Lightbox = ({ src, alt, onClose }) => {
   useEffect(() => {
-    document.body.style.overflow = "hidden";
     const handler = (e) => { if (e.key === "Escape") onClose(); };
     window.addEventListener("keydown", handler);
-    return () => { document.body.style.overflow = ""; window.removeEventListener("keydown", handler); };
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", handler);
+      document.body.style.overflow = "";
+    };
   }, [onClose]);
 
   return (
-    <AnimatePresence>
+    <motion.div
+      className={style.lightbox}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      onClick={onClose}
+    >
+      <button className={style.lb_close} onClick={onClose} aria-label="Close">✕</button>
+      <div className={style.lb_hint}>Click anywhere or press ESC to close</div>
+      <motion.img
+        src={src}
+        alt={alt}
+        className={style.lb_img}
+        initial={{ scale: 0.92, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.92, opacity: 0 }}
+        transition={{ duration: 0.2 }}
+        onClick={e => e.stopPropagation()}
+      />
+    </motion.div>
+  );
+};
+
+/* ── MODAL ── */
+const Modal = ({ design, onClose }) => {
+  const [lightbox, setLightbox] = useState(false);
+
+  useEffect(() => {
+    if (lightbox) return; // don't override when lightbox is open
+    document.body.style.overflow = "hidden";
+    const handler = (e) => { if (e.key === "Escape") onClose(); };
+    window.addEventListener("keydown", handler);
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", handler);
+    };
+  }, [onClose, lightbox]);
+
+  return (
+    <>
+      <AnimatePresence>
+        {lightbox && (
+          <Lightbox
+            src={design.diagram}
+            alt={design.title}
+            onClose={() => setLightbox(false)}
+          />
+        )}
+      </AnimatePresence>
+
       <motion.div
         className={style.overlay}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         onClick={onClose}
+        style={{ zIndex: lightbox ? 0 : 1000 }}
       >
         <motion.div
           className={style.modal}
           initial={{ opacity: 0, scale: 0.92, y: 24 }}
-          animate={{ opacity: 1, scale: 1,    y: 0 }}
-          exit={{   opacity: 0, scale: 0.92, y: 24 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          exit={{ opacity: 0, scale: 0.92, y: 24 }}
           transition={{ duration: 0.25, ease: "easeOut" }}
           onClick={e => e.stopPropagation()}
         >
-          {/* Modal header */}
+          {/* Header */}
           <div className={style.modal_header}>
             <div className={style.modal_header_left}>
               <h2 className={style.modal_title}>{design.title}</h2>
@@ -155,14 +209,48 @@ const Modal = ({ design, onClose }) => {
             {/* Diagram */}
             <div className={style.modal_diagram}>
               {design.diagram ? (
-                <img src={design.diagram} alt={design.title} className={style.modal_img} />
+                <>
+                  {/* Diagram image — click to open lightbox */}
+                  <div
+                    className={style.diagram_img_wrap}
+                    onClick={() => setLightbox(true)}
+                    title="Click to zoom"
+                  >
+                    <img
+                      src={design.diagram}
+                      alt={design.title}
+                      className={style.modal_img}
+                    />
+                    {/* Zoom overlay hint */}
+                    <div className={style.zoom_hint}>
+                      <span className={style.zoom_icon}>🔍</span>
+                      <span>Click to zoom</span>
+                    </div>
+                  </div>
+
+                  {/* Full size button */}
+                  <div className={style.diagram_actions}>
+                    <button
+                      className={style.fullsize_btn}
+                      onClick={() => setLightbox(true)}
+                    >
+                      <span>⛶</span> View full size
+                    </button>
+                    <a
+                      href={design.diagram}
+                      target="_blank"
+                      rel="noreferrer"
+                      className={style.newtab_btn}
+                    >
+                      <span>↗</span> Open in new tab
+                    </a>
+                  </div>
+                </>
               ) : (
                 <div className={style.modal_placeholder}>
                   <span className={style.placeholder_icon}>⬡</span>
                   <p className={style.placeholder_text}>
-                    Export your Excalidraw diagram as PNG<br />
-                    save to <code>src/assets/url-shortener.png</code><br />
-                    then set <code>diagram: urlImg</code>
+                    Export your Excalidraw diagram as PNG and add it here
                   </p>
                 </div>
               )}
@@ -178,7 +266,9 @@ const Modal = ({ design, onClose }) => {
               <div className={style.modal_stats}>
                 {design.stats.map((s, i) => (
                   <div key={i} className={style.modal_stat}>
-                    <span className={style.modal_stat_val}>{s.val}<span className={style.modal_stat_unit}> {s.unit}</span></span>
+                    <span className={style.modal_stat_val}>
+                      {s.val}<span className={style.modal_stat_unit}> {s.unit}</span>
+                    </span>
                     <span className={style.modal_stat_key}>{s.label}</span>
                   </div>
                 ))}
@@ -223,14 +313,13 @@ const Modal = ({ design, onClose }) => {
           </div>
         </motion.div>
       </motion.div>
-    </AnimatePresence>
+    </>
   );
 };
 
 /* ── SMALL CARD ── */
 const DesignCard = ({ design, index, onClick }) => {
   const isCompleted = design.status === "completed";
-
   return (
     <motion.div
       variants={fadeIn("up", "", index * 0.08, 0.4)}
@@ -241,11 +330,8 @@ const DesignCard = ({ design, index, onClick }) => {
       tabIndex={isCompleted ? 0 : undefined}
       onKeyDown={isCompleted ? (e) => { if (e.key === "Enter") onClick(); } : undefined}
     >
-      {/* top accent */}
       {isCompleted && <div className={style.card_accent} />}
-
       <div className={style.card_inner}>
-        {/* icon + status */}
         <div className={style.card_top}>
           <span className={style.card_icon}>⬡</span>
           {isCompleted
@@ -253,17 +339,11 @@ const DesignCard = ({ design, index, onClick }) => {
             : <span className={style.coming_pill}>soon</span>
           }
         </div>
-
-        {/* title */}
         <h3 className={style.card_title}>{design.title}</h3>
         <p className={style.card_subtitle}>{design.subtitle}</p>
-
-        {/* diff badge */}
-        <span className={DIFF_COLOR[design.difficulty] + " " + style.diff_badge} style={{marginTop:"8px",alignSelf:"flex-start"}}>
+        <span className={DIFF_COLOR[design.difficulty] + " " + style.diff_badge} style={{ marginTop:"8px", alignSelf:"flex-start" }}>
           {design.difficulty}
         </span>
-
-        {/* concept chips — first 3 */}
         <div className={style.card_chips}>
           {design.concepts.slice(0, 3).map((c, i) => (
             <span key={i} className={style.chip}>{c}</span>
@@ -272,8 +352,6 @@ const DesignCard = ({ design, index, onClick }) => {
             <span className={style.chip_more}>+{design.concepts.length - 3}</span>
           )}
         </div>
-
-        {/* cta */}
         {isCompleted && (
           <div className={style.card_cta}>
             <span>View details</span>
@@ -288,23 +366,20 @@ const DesignCard = ({ design, index, onClick }) => {
 /* ── MAIN ── */
 const SystemDesign = () => {
   const [selected, setSelected] = useState(null);
-
   return (
     <>
-      <motion.h1 variants={textVariant()} className={style.title}>
-        System Design
-      </motion.h1>
+      <motion.h1 variants={textVariant()} className={style.title}>System Design</motion.h1>
       <motion.p variants={fadeIn("","",0.1,0.5)} className={style.subtitle}>
         Architecture breakdowns — requirements · estimation · tradeoffs · diagrams
       </motion.p>
-
       <div className={style.grid}>
         {DESIGNS.map((d, i) => (
           <DesignCard key={d.id} design={d} index={i} onClick={() => setSelected(d)} />
         ))}
       </div>
-
-      {selected && <Modal design={selected} onClose={() => setSelected(null)} />}
+      <AnimatePresence>
+        {selected && <Modal design={selected} onClose={() => setSelected(null)} />}
+      </AnimatePresence>
     </>
   );
 };
