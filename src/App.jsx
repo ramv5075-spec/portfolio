@@ -18,6 +18,7 @@ import TerminalEgg from './components/TerminalEgg';
 import LeetCode from './components/LeetCode';
 import AnnouncementBar from './components/AnnouncementBar';
 import Lab from './components/Lab';
+import LoadingScreen from './components/LoadingScreen';
 
 /* ── Main portfolio page ── */
 const Portfolio = () => (
@@ -26,14 +27,10 @@ const Portfolio = () => (
     <DotNav />
     <TerminalEgg />
     <PortfolioChat />
-
-    {/* Hero */}
     <div className="relative w-screen h-screen">
       <Home />
       <StarsCanvas />
     </div>
-
-    {/* Main content */}
     <div className="relative body">
       <Navbar />
       <About />
@@ -42,10 +39,9 @@ const Portfolio = () => (
       <Service />
       <Work />
       <div><Testimonial /></div>
-      {/* <LeetCode /> */}
-      <div><Contact /></div>
+      <LeetCode />
+      <Contact />
     </div>
-
     <Footer />
   </>
 );
@@ -62,13 +58,25 @@ const LabPage = () => (
 );
 
 function App() {
+  const [loaded, setLoaded] = useState(false);
+
   return (
     <BrowserRouter>
       <ThemeProvider>
-        <Routes>
-          <Route path="/"    element={<Portfolio />} />
-          <Route path="/lab" element={<LabPage />} />
-        </Routes>
+
+        {/* Loading screen — shows once on first visit */}
+        {!loaded && (
+          <LoadingScreen onComplete={() => setLoaded(true)} />
+        )}
+
+        {/* Main app — rendered underneath, visible after loading */}
+        <div style={{ opacity: loaded ? 1 : 0, transition: 'opacity 0.4s ease' }}>
+          <Routes>
+            <Route path="/"    element={<Portfolio />} />
+            <Route path="/lab" element={<LabPage />} />
+          </Routes>
+        </div>
+
       </ThemeProvider>
     </BrowserRouter>
   );

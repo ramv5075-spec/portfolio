@@ -6,175 +6,195 @@
   text-align: center;
   position: relative;
   padding: 8px 0;
-  margin-bottom: 48px;
+  margin-bottom: 32px;
 }
-
 .title::after {
   content: "";
-  background-color: var(--white);
-  width: 50px;
-  height: 2.5px;
+  background-color: var(--cyan);
+  width: 50px; height: 2.5px;
   display: inline-block;
   position: absolute;
-  bottom: 0;
-  left: 50%;
+  bottom: 0; left: 50%;
   transform: translateX(-50%);
 }
 
-/* ── Two-column layout ── */
-.layout {
+/* ── Wrapper: bio left | photo right ── */
+.wrapper {
   width: 90%;
-  max-width: 1100px;
+  max-width: 1060px;
   margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  align-items: center;
 }
 
-/* ── Left column ── */
+/* ══════ LEFT — bio ══════ */
 .left {
   display: flex;
   flex-direction: column;
   gap: 14px;
 }
-
-.text {
-  font-size: 0.95rem;
-  line-height: 1.8;
-  word-spacing: 0.1rem;
-  color: var(--grey);
-}
-
-.highlight {
-  color: var(--cyan);
-  font-weight: 600;
-}
-
-.link {
-  color: var(--cyan);
-  position: relative;
-  padding-bottom: 1.5px;
-}
-
-.link::after {
-  content: "";
-  position: absolute;
-  width: 0;
-  height: 1px;
-  display: inline-block;
-  left: 0;
-  bottom: 0;
-  background-color: var(--cyan);
-  transition: 0.3s;
-}
-
-.link:hover::after {
-  width: 100%;
-}
-
-/* ── CTA buttons ── */
-.cta_row {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin-top: 8px;
-}
-
-.btn_primary {
-  padding: 10px 20px;
-  border: 1.5px solid var(--cyan);
-  color: var(--cyan);
-  font-size: 0.88rem;
-  text-decoration: none;
-  transition: all 0.2s ease;
-  background: transparent;
-}
-
-.btn_primary:hover {
-  background-color: var(--cyan);
-  color: #0a0f1e;
-  box-shadow: 0 0 12px var(--cyan);
-}
-
-.btn_secondary {
-  padding: 10px 20px;
-  border: 1.5px solid rgba(255,255,255,0.25);
-  color: rgba(255,255,255,0.7);
-  font-size: 0.88rem;
-  text-decoration: none;
-  transition: all 0.2s ease;
-  background: transparent;
-}
-
-.btn_secondary:hover {
-  border-color: var(--cyan);
-  color: var(--cyan);
-}
-
-/* ── Right column: highlight cards ── */
-.right {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px;
-}
-
-.card {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 14px 16px;
-  border: 1px solid rgba(255,255,255,0.08);
-  background: rgba(255,255,255,0.03);
-  border-radius: 8px;
-  transition: all 0.2s ease;
-}
-
-.card:hover {
-  border-color: rgba(0,255,255,0.3);
-  background: rgba(0,255,255,0.04);
-  transform: translateY(-2px);
-}
-
-.card_icon {
+.name_block { display: flex; flex-direction: column; gap: 4px; }
+.name {
+  font-family: 'Bungee', cursive;
   font-size: 1.4rem;
-  flex-shrink: 0;
-}
-
-.card_label {
-  font-size: 0.65rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1rem;
-  color: rgba(255,255,255,0.4);
-  margin-bottom: 2px;
-}
-
-.card_value {
-  font-size: 0.82rem;
   color: var(--white);
-  font-weight: 500;
+  margin: 0;
+  line-height: 1.15;
+}
+.tagline {
+  font-size: 0.72rem;
+  color: var(--cyan);
+  opacity: 0.8;
+  font-family: 'Montserrat Alternates', sans-serif;
+  margin: 0;
+}
+.accent_line {
+  width: 40px; height: 2px;
+  background: var(--cyan);
+  opacity: 0.6;
+  border-radius: 2px;
+}
+.para {
+  text-align: justify;
+  font-size: 0.82rem;
+  line-height: 1.8;
+  color: rgba(255,255,255,0.6);
+  font-family: 'Montserrat Alternates', sans-serif;
+  margin: 0;
+}
+.hl     { color: var(--cyan); font-weight: 700; }
+.metric { color: var(--white); font-weight: 700; }
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 4px;
+}
+.tag {
+  font-size: 0.62rem;
+  padding: 4px 12px;
+  border-radius: 20px;
+  border: 1px solid rgba(0,207,255,0.2);
+  background: rgba(0,207,255,0.06);
+  color: var(--cyan);
+  font-family: 'Montserrat Alternates', sans-serif;
 }
 
-/* ── RESPONSIVE ── */
+/* ══════ RIGHT — photo ══════ */
+.right {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.photo_wrap {
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(0,207,255,0.12);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.45);
+}
+.photo {
+  width: 100%;
+  height: 380px;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+  transition: transform 0.4s ease;
+}
+.photo_wrap:hover .photo { transform: scale(1.02); }
+.photo_overlay {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 120px;
+  background: linear-gradient(to top, rgba(5,8,22,0.9), transparent);
+  pointer-events: none;
+}
+.badge {
+  position: absolute;
+  bottom: 14px; left: 50%;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 16px;
+  border-radius: 20px;
+  background: rgba(5,8,22,0.92);
+  border: 1px solid rgba(16,185,129,0.3);
+  backdrop-filter: blur(10px);
+  white-space: nowrap;
+  z-index: 2;
+}
+.badge_dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 6px #10b981;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%  { box-shadow:0 0 0 0 rgba(16,185,129,0.5); }
+  70% { box-shadow:0 0 0 7px rgba(16,185,129,0); }
+  100%{ box-shadow:0 0 0 0 rgba(16,185,129,0); }
+}
+.badge_text {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.82);
+  font-family: 'Montserrat Alternates', sans-serif;
+}
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 1px;
+  background: rgba(255,255,255,0.07);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 10px 4px;
+  background: rgba(8,14,26,0.95);
+}
+.stat_val {
+  font-family: 'Bungee', cursive;
+  font-size: 1rem;
+  color: var(--cyan);
+  line-height: 1;
+}
+.stat_label {
+  font-size: 0.5rem;
+  color: rgba(255,255,255,0.35);
+  font-family: 'Montserrat Alternates', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.04rem;
+  text-align: center;
+}
 
+/* ══════ RESPONSIVE ══════ */
 @media screen and (min-width: 768px) {
   .title { font-size: 2rem; }
-  .text { font-size: 1rem; text-align: justify; }
 }
-
-@media screen and (min-width: 992px) {
-  .layout {
-    flex-direction: row;
-    align-items: flex-start;
-    gap: 60px;
+@media screen and (min-width: 900px) {
+  .wrapper {
+    grid-template-columns: 1fr 1fr;
+    gap: 52px;
   }
-
-  .left { flex: 1.2; }
-  .right { flex: 1; }
+  .photo { height: 460px; }
 }
-
 @media screen and (min-width: 1200px) {
   .title { font-size: 2.3rem; }
   .title::after { width: 80px; }
-  .text { font-size: 1.02rem; }
-  .card_value { font-size: 0.88rem; }
+  .name  { font-size: 1.6rem; }
+  .para  { font-size: 0.86rem; }
+  .photo { height: 500px; }
+}
+@media screen and (max-width: 480px) {
+  .photo { height: 300px; }
+  .stats { grid-template-columns: repeat(2,1fr); }
 }
