@@ -16,10 +16,10 @@ const ROLES = [
 
 const STATS = [
   { value: 4,   suffix: '+', label: 'Years Exp',  leet: false },
-  { value: 3,   suffix: '',  label: 'Companies',  leet: false },
+  { value: 4,   suffix: '',  label: 'Companies',  leet: false },
   { value: 20,  suffix: '+', label: 'Projects',   leet: false },
   { value: 7300,suffix: '',  label: 'Read req/s', leet: false },
-  { value: 686, suffix: '+', label: 'LeetCode',   leet: true  },
+  { value: 928, suffix: '+', label: 'LeetCode',   leet: true  },
 ];
 
 const TERMINAL_LINES = [
@@ -31,12 +31,12 @@ const TERMINAL_LINES = [
   { type: 'out',   text: '→ Garden State Speed Skating  (Feb 2026–Present)' },
   { type: 'out',   text: '→ Hachette Book Group          (Jun–Dec 2025)' },
   { type: 'out',   text: '→ CodeStax.ai                  (May 2022–Jun 2024)' },
-  { type: 'out',   text: '→ Novalnet e-Solutions         (Feb 2021–May 2022)' },
+  { type: 'out',   text: '→ Novalnet e-Solutions         (Feb 2021–Apr 2022)' },
   { type: 'blank', text: '' },
   { type: 'cmd',   text: 'ls skills/' },
-  { type: 'dir',   text: 'Java/  Python/  Go/  TypeScript/  C++/' },
-  { type: 'dir',   text: 'Spring-Boot/  FastAPI/  React/  Vue/' },
-  { type: 'dir',   text: 'Kafka/  Redis/  AWS/  Docker/  K8s/' },
+  { type: 'dir',   text: 'Java/  Python/  TypeScript/  C++/  SQL/' },
+  { type: 'dir',   text: 'Spring-Boot/  Node.js/  FastAPI/  React/  Vue/' },
+  { type: 'dir',   text: 'Kafka/  AWS/  Docker/' },
   { type: 'dir',   text: 'LangGraph/  MCP/  FAISS/  Mistral-7B/' },
   { type: 'blank', text: '' },
   { type: 'cmd',   text: 'cat benchmarks.txt' },
@@ -219,7 +219,7 @@ const ScrollIndicator = () => (
 function Home() {
   const ghHref = 'https://github.com/ramv5075-spec';
   const liHref = 'https://linkedin.com/in/ramvasanth-mahendran-8a0507203';
-  const cvHref = 'https://drive.google.com/file/d/1iDAS97T-d9uYfK6dxMZnmc2J9O6dL6up/preview';
+  const cvHref = 'https://drive.google.com/file/d/1m5O97qTzsh5X9JBJKtyYBbYyy7t3l-hK/view?usp=drive_link';
 
   return (
     <motion.section variants={staggerContainer()} initial="hidden" whileInView="show"

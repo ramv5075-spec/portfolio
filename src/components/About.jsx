@@ -9,7 +9,7 @@ const STATS = [
   { val: "4+",   label: "Years Exp"  },
   { val: "3",    label: "Companies"  },
   { val: "20+",  label: "Projects"   },
-  { val: "686+", label: "LeetCode"   },
+  { val: "900+", label: "LeetCode"   },
 ];
 
 const About = () => (

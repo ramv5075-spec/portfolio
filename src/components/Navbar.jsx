@@ -6,7 +6,7 @@ import { light, dark } from "../assets";
 import style from "./styles/navbar.module.css";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
-const RESUME_LINK = "https://drive.google.com/file/d/1iDAS97T-d9uYfK6dxMZnmc2J9O6dL6up/preview";
+const RESUME_LINK = "https://drive.google.com/file/d/1m5O97qTzsh5X9JBJKtyYBbYyy7t3l-hK/view?usp=drive_link";
 
 const NAV_LINKS = [
   { id: 1, name: "About",      url: "/#about" },
